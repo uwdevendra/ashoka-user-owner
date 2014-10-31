@@ -26,7 +26,7 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
-/config/database.yml
+# /config/database.yml
 bin/
 .rvmrc
 zeus.json
@@ -34,7 +34,7 @@ custom_plan.rb
 a.log
 
 # Ignore application configuration
-/config/application.yml
+# /config/application.yml
 /public/uploads
 
 # Mac OS Metadata
