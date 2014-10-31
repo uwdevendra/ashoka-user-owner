@@ -1,13 +1,20 @@
 development:
-  S3_ACCESS_KEY: # S3 Access key.
-  S3_SECRET: # S3 Secret key.
-  S3_BUCKET: # Name of the S3 bucket
-  SECRET_TOKEN: # Secret key used to sign cookies (run `rake secret`)
-  USER_OWNER_HOST: # Set the host for mailers
+  S3_ACCESS_KEY: AKIAIMLX5Y3O3OKHMS2A
+  S3_SECRET: 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
+  S3_BUCKET: surveywebdevelopmentassets
+  SECRET_TOKEN: 1ea79e79a7c34eb1ed64bb9c7d5c4d3faa442910c8c9a93d7ab624a9db516f60b0c2c57373828c5ec77d4b82eccfddc0e1a561a712f78f14ddcc28a2319f9911
+  USER_OWNER_HOST: "http://0.0.0.0:3001"
 
 test:
-  S3_ACCESS_KEY: # S3 Access key.
-  S3_SECRET: # S3 Secret key.
-  S3_BUCKET: # Name of the S3 bucket
-  SECRET_TOKEN: # Secret key used to sign cookies (run `rake secret`)
-  USER_OWNER_HOST: # Set the host for mailers
+  S3_ACCESS_KEY: foo
+  S3_SECRET: bar
+  S3_BUCKET: baz
+  SECRET_TOKEN: foo
+  USER_OWNER_HOST: "http://foo.com"
+
+production:
+  S3_ACCESS_KEY: foo
+  S3_SECRET: bar
+  S3_BUCKET: baz
+  SECRET_TOKEN: 1ea79e79a7c34eb1ed64bb9c7d5c4d3faa442910c8c9a93d7ab624a9db516f60b0c2c57373828c5ec77d4b82eccfddc0e1a561a712f78f14ddcc28a2319f9911
+  USER_OWNER_HOST: "foo:3000"
