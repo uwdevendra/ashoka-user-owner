@@ -23,4 +23,8 @@ class DocumentsController < ApplicationController
     @terms_of_service = TermsOfService.latest
     @privacy_policy = PrivacyPolicy.latest
   end
+
+  def dummy
+
+  end
 end

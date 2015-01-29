@@ -18,6 +18,7 @@ class UsersController < ApplicationController
       flash[:notice] = t "users.create.user_created_successfully"
       @user.send_password_reset
       redirect_to root_path
+      # redirect_to organization_users_path
     else
       render :new
     end
@@ -29,10 +30,12 @@ class UsersController < ApplicationController
   end
 
   def update
+    puts params
     @user = User.find_by_id(params[:id])
     @organization = @user.organization
+
     if @user.update_attributes(params[:user])
-      flash[:notice] = t "users.update.user_updated"
+      flash[:notice] = t "user_updated"
       redirect_to organization_users_path, :organization_id => @user.organization_id
     else
       flash[:error] = @user.errors.full_messages

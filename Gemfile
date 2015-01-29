@@ -53,5 +53,9 @@ end
 
 group :development do
   gem 'letter_opener', '~> 1.1.1'
+  gem 'letter_opener_web', '~> 1.2.0'
+  gem 'rails-erd'
+  gem 'railroady'
+  gem 'debugger'
 end
 

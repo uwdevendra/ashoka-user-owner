@@ -1,46 +1,97 @@
 <!-- All *_path methods in this file need to be called on `main_app` because this file could be rendered from an engine -->
-<div id="banner" role="banner">
-  <ul>
-  	<li><%= link_to t("header.home"), main_app.root_path, :class => 'home' %></li>
-    <% if can? :manage, Organization %>
-      <li><%= link_to t("header.organizations"), main_app.organizations_path, :class=>'organization'  %></li>
-      <li><%= link_to t("header.add_applications"), "/oauth/applications/new", :class => 'add' %></li>
+<div class="header">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/"><%= t("header.application_title") %></a>
+    </h1>
+    <div id="language_selection" class="lang">
+      <div id="current_lang"><a>En</a></div>
+      <div class="popUp" id="lang">
+        <a class="close_btn"></a>
+        <header>
+          <h2><%= t("chnage_language") %></h2>
+        </header>
+        <div class="langWrp">
+          <%= link_to "English", { locale: nil } ,class: "Btn nrmlBtn" ,'data_id' => 'en' %>
+          <%= link_to "French", { locale: 'fr' } ,class: "Btn nrmlBtn" ,'data_id' => 'fr' %>
+        </div>
+      </div>
+    </div>
+    <a href="#" class="overlay"></a>
+    <a href="#" class="overlay_for_dropdown"></a>
+    <% if current_user %>
+      <div id="welcome">
+        <span><%= t "header.welcome", :username => current_user.name %></span>
+        <div id="user_options" class="profilePopUp">
+          <ul>
+            <li>
+              <a>Help</a>
+            </li>
+            <% if has_signed_in_user? %>
+              <li><%= link_to t("header.log_out"), main_app.logout_path, :class => 'logout' %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     <% end %>
-
-    <% if current_user && current_user.organization %>
-      <% if can?(:manage, User) %>
-        <li><%= link_to t("header.create_a_user"), main_app.new_organization_user_path(current_user.organization_id), :class => 'add' %></li>
-        <li><%= link_to t("header.list_users"), main_app.organization_users_path(current_user.organization_id), :class => 'users' %></li>
-      <% end %>
-
-      <% if can? :edit, current_user.organization %>
-        <li><%= link_to t("header.edit_organization"), main_app.edit_organization_path(current_user.organization), :class => 'edit-organization' %></li>
-      <% end %>
-
-      <% if can?(:destroy, current_user.organization) %>
-        <li><%= link_to t("header.delete_organization"), main_app.organization_path(current_user.organization), :method => :delete, :class => 'remove', :confirm => t("header.confirm_delete_organization") %></li>
-      <% end %>
-    <% end %>
-
-    <% if can? :manage, :document %>
-      <li><%= link_to t("header.documents"), main_app.documents_path, :class => 'documents' %></li>
-    <% end %>
-
-    <% if has_signed_in_user? %>
-      <li><%= link_to t("header.log_out"), main_app.logout_path, :class => 'logout' %></li>
-    <% else %>
-      <li><%= link_to t("header.log_in"), main_app.login_path, :class => 'signin' %></li>
+    <ul class="headerRightLinks">
       <% if Feature.active?(:register_link) %>
-        <li><%= link_to t("header.register"), main_app.register_path, :class => 'register' %></li>
+        <li><%= link_to t("header.register"), main_app.register_path, :class => 'register Btn colrBtn' %></li>
       <% end %>
-    <% end %>
-  </ul>
+    </ul>
+    <div class="clear"></div>
+  </div>
 </div>
+<div class="mainNav">
+  <div class="wrapper">
+    <ul class="mainMenu">
+      <% if can? :manage, Organization %>
+        <li>
+          <%= link_to(main_app.organizations_path,
+            :class => 'organization ' + current_class?(main_app.organizations_path) + current_class?("/organizations/new") + current_newsted_class?("/users/new")  + current_newsted_class?(" organizations") +  current_newsted_class?("register") ) do %>
+            <span><%= t("header.organizations") %></span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to("/oauth/applications/" ,:class => 'add apps' + current_class?("/oauth/applications/") ) do %>
+            <span><%= t("header.applications") %></span>
+          <% end %>
+        </li>
+      <% end %>
+      <% if current_user && current_user.organization %>
+        <% x = apps %>
+        <% x.each do |y| %>
+          <li><%= link_to t("Surveys") , application_url(y.redirect_uri), :class => 'surveys' %></li>
+        <% end %>
 
-<h1 id="logo">
-  <a href="/"><%= t('header.application_title') %></a>
-</h1>
+        <% if can? :edit, current_user.organization %>
+          <li>
+            <%= link_to(main_app.edit_organization_path(current_user.organization), :class => 'edit-organization ' + current_class?(main_app.edit_organization_path(current_user.organization))  + current_newsted_class?(" organizations") ) do %>
+              <span><%= t("header.organization") %></span>
+            <% end %>
+          </li>
+        <% end %>
 
-<% if current_user %>
-  <h3 id="welcome"><%= t "header.welcome", :username => current_user.name %></h3>
-<% end %>
+        <% if can?(:manage, User) %>
+          <li>
+            <%= link_to(main_app.organization_users_path(current_user.organization_id) ,:class => 'users ' + current_class?(main_app.organization_users_path(current_user.organization_id)) +  " " +current_newsted_class?("users")  ) do %>
+              <span><%= t("header.list_users") %></span>
+            <% end %>
+          </li>
+        <% end %>
+
+        
+
+      <% end %>
+
+      <% if can? :manage, :document %>
+        <li>
+          <%= link_to(main_app.documents_path ,:class => 'documents ' + current_class?(main_app.documents_path) + current_class?("/documents/new")) do %>
+            <span><%=  t("header.documents") %></span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+    <div class="clear"></div>
+  </div>
+</div>

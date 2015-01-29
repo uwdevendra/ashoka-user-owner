@@ -1,12 +1,14 @@
 class Organization < ActiveRecord::Base
   include SoftDeletable
 
-  attr_accessible :name, :logo
+  attr_accessible :name, :logo , :about , :status
   has_many :users
   validates_presence_of :name
   validates_uniqueness_of :name
   validates_inclusion_of :default_locale, :in => I18n.available_locales.map(&:to_s)
   validates_inclusion_of :org_type, :in => proc { Organization.types }
+
+
 
   mount_uploader :logo, LogoUploader
 
@@ -48,6 +50,7 @@ class Organization < ActiveRecord::Base
     cso_admin.role = "cso_admin"
     cso_admin.status = User::Status::ACTIVE
     organization.users <<  cso_admin
+    puts organization.inspect
     organization
   end
 
@@ -64,9 +67,14 @@ class Organization < ActiveRecord::Base
     INACTIVE = "inactive"
   end
 
+  #
+  scope :active_orgs , where(:status => Status::ACTIVE)
+  scope :inactive_orgs , where(:status => Status::INACTIVE)
+  #
+
   def soft_delete_self_and_associated
     OrganizationMailer.delay(:queue => "deregister_organization_notify_superadmins").
-        notify_deregister_organization_for(User.super_admins_and_cso_admins_for(self.id).pluck("email"), self.name)
+      notify_deregister_organization_for(User.super_admins_and_cso_admins_for(self.id).pluck("email"), self.name)
     users.each(&:soft_delete)
     self.delay(:queue => "deregister_organization", :run_at => 48.hours.from_now).soft_delete
   end

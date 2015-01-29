@@ -14,7 +14,9 @@ class OrganizationsController < ApplicationController
     @organization.default_locale = I18n.locale.to_s
 
     if @organization.save
-      redirect_to root_path
+      # redirect_to root_path
+      # redirect_to organizations_path(:org_id => @organization.users.first)
+      redirect_to organizations_path
       flash[:notice] = t("successful_create_message")
     else
       @organization = @organization.decorate
@@ -26,6 +28,8 @@ class OrganizationsController < ApplicationController
 
   def edit
     @organization = Organization.find(params[:id])
+    # added @users_count to show in summary section as per new design
+    @users_count = @organization.users
   end
 
   def update
@@ -36,9 +40,13 @@ class OrganizationsController < ApplicationController
   end
 
   def index
+    # @org = params[:org_id]
   end
 
   def show
+    # @organization = Organization.find_by_id(params[:id])
+    redirect_to(:controller =>  "organizations" , :action => "edit")
+    # redirect_to(:controller =>  "organizations" , :action => "edit" , :organization_id => @organization.id)
     @organization = Organization.find_by_id(params[:id])
   end
 

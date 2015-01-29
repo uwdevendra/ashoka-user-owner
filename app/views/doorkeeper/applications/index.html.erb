@@ -1,30 +1,38 @@
-<div class="span16">
-  <header class="page-header">
-    <h2>Your applications</h2>
-  </header>
+<div class="tabBox">
+<div class="container">
+  <div class="span16">
+    <header class="page-header">
+      <h2 class="left">Your applications</h2>
 
-  <p><%= link_to 'Home', main_app.root_path %> |
-  <%= link_to 'New Application', new_application_path %></p>
+      <%= link_to 'New Application', new_application_path , :class => "Btn colrBtn right" %>
 
-  <table class="zebra-striped">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Callback url</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @applications.each do |application| %>
-        <tr id="application_<%= application.id %>">
-          <td><%= link_to application.name, application %></td>
-          <td><%= application.redirect_uri %></td>
-          <td><%= link_to 'Edit', edit_application_path(application) %></td>
-          <td><%= link_to 'Destroy', application, :confirm => 'Are you sure?', :method => :delete %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+    </header>
+    <!-- <p><%= link_to 'Home', main_app.root_path %></p> -->
 
+<div class="tabContainer active">
+    <table class="table_list">
+      
+        <tr>
+          <th class="rightBorder">Name</th>
+          <th class="rightBorder">Callback url</th>
+          <th class="rightBorder"></th>
+          <th></th>
+        </tr>      
+
+      
+
+        <% @applications.each do |application| %>
+          <tr id="application_<%= application.id %>">
+            <td><%= link_to application.name, application %></td>
+            <td><%= application.redirect_uri %></td>
+            <td><%= link_to '', edit_application_path(application) , class: "user_edit edit" %></td>
+            <td><%= link_to '', application, :confirm => 'Are you sure?', :method => :delete , class: "deleteApp" %></td>
+          </tr>
+        <% end %>
+      
+
+    </table>
+    </div>
+  </div>
+</div>
 </div>

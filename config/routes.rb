@@ -1,4 +1,8 @@
 UserService::Application.routes.draw do
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
   scope "(:locale)", :locale => /#{I18n.available_locales.join('|')}/ do
     mount Doorkeeper::Engine => '/oauth'
     mount SudoMode::Engine => '/sudo'
@@ -6,6 +10,9 @@ UserService::Application.routes.draw do
     get 'register', :to => 'organizations#new', :as => 'register'
     get 'login', :to => 'sessions#new', :as => 'login'
     get 'logout', :to => 'sessions#destroy', :as => 'logout'
+
+    # bug fix 
+    get '/organizations/:id/users', :to => 'organizations#edit'
 
     get 'deactivated_organization', :to => 'static_pages#deactivated_organization', :as => 'deactivated'
 
@@ -16,7 +23,7 @@ UserService::Application.routes.draw do
       put 'activate', 'deactivate'
     end
 
-    resources :documents, :only => [:new, :create, :index]
+    resources :documents, :only => [:new, :create, :index,:dummy ]
 
     root :to => 'sessions#new'
   end

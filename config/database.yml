@@ -15,7 +15,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: user_service_development_1
+  database: user_service_development
   pool: 5
   username: 
   password:
@@ -41,7 +41,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: user_service_test_1
+  database: user_service_test
   pool: 5
   username: 
   password:
@@ -49,7 +49,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: user_service_production_1
+  database: user_service_production
   pool: 5
   username: 
   password:

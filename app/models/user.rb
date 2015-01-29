@@ -40,6 +40,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def pending?
+    status == Status::PENDING
+  end
+
   def active?
     status == Status::ACTIVE
   end
@@ -51,6 +55,7 @@ class User < ActiveRecord::Base
   def send_password_reset
     generate_password_reset_token
     UserMailer.delay(:queue => "password_reset_mail").password_reset_mail(self)
+    # UserMailer.password_reset_mail(self)
   end
 
   def generate_password_reset_token

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130712112209) do
+ActiveRecord::Schema.define(:version => 20141214122954) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20130712112209) do
     t.date     "deleted_at"
     t.boolean  "allow_sharing",  :default => false
     t.string   "logo"
+    t.string   "about"
   end
 
   create_table "privacy_policies", :force => true do |t|

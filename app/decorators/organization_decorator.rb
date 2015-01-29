@@ -23,9 +23,11 @@ class OrganizationDecorator < Draper::Decorator
     {
       :id => model.id,
       :name => model.name,
+      :about => model.about,
       :logos => {
         :thumb_url => model.logo.thumb.url
-      }
+      },
+
     }
   end
 end

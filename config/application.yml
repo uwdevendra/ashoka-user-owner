@@ -3,7 +3,8 @@ development:
   S3_SECRET: bSximlOaSnwEoDVeG4azInIxGZ281+NJA+47X4kA
   S3_BUCKET: surveywebdevelopmentassets
   SECRET_TOKEN: 1ea79e79a7c34eb1ed64bb9c7d5c4d3faa442910c8c9a93d7ab624a9db516f60b0c2c57373828c5ec77d4b82eccfddc0e1a561a712f78f14ddcc28a2319f9911
-  USER_OWNER_HOST: "http://0.0.0.0:3001"
+  # USER_OWNER_HOST: "http://0.0.0.0:3001"
+  USER_OWNER_HOST: "http://192.168.2.121:3001"
 
 test:
   S3_ACCESS_KEY: foo

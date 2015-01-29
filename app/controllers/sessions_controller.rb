@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     user = User.maybe(User.find_by_email(params[:user][:email].downcase))
     if user.authenticate(params[:user][:password])
       session[:user_id] = user.id
-      flash[:notice] = t "log_in_successful"
+      # flash[:notice] = t "log_in_successful"
       redirect_to(session.delete(:return_to) || root_path)
     else
       flash[:error] = t "wrong_email_password"
@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
   def organization_active?
     user = User.maybe(User.find_by_email(params[:user][:email].downcase))
     if !user.super_admin? && !user.organization_active?
-      redirect_to(deactivated_path) 
+      redirect_to(deactivated_path)
     end
   end
 
@@ -38,7 +38,7 @@ class SessionsController < ApplicationController
     user = User.maybe(User.find_by_email(params[:user][:email].downcase))
     user.active?
     unless user.active?
-      flash[:error] = "You are not authorized to access this page."
+      flash[:error] = t ".sessions.not_authorized"
       redirect_to(root_path)
     end
   end

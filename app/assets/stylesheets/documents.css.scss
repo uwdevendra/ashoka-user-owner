@@ -1,26 +1,27 @@
 div.documents {
-  header > a {
-    float: right;
-    margin: 12px 0 12px 12px;
-    padding: 0 6px;
-    line-height: 24px;
-    background: $secondary-color;
-    color: $white;
-    @include border-radius(2px);
+padding-bottom: 20px;
+  
+.form-section {
+    margin: 10px 5px 25px 0px;
+    padding: 10px 10px 30px 15px;
+    border-bottom: 1px solid #e0e0e0;
 
-    &:hover{
-      border: none;
-      background: $white;
-      color: $secondary-color;
+    h2 {font-size: 18px;
+      font-weight: 500;
+      padding: 0px 0 20px 0;
+      text-align: left;
+    }
+    label{
+      margin: 0 0 20px 0;
+    }
+    .upload-field {
+      float: left;
+      clear: both;
     }
   }
+  .documents_update_btn {padding-left: 15px;}
 
-  .form-section {
-    margin: 10px 5px;
-    padding: 10px;
-  }
-
-  .upload-action { margin: 30px 25px; }
+  .upload-action { margin: 0px 25px 10px 0px;}
   .upload-error {
     margin-left: 25px;
     color: $danger;
